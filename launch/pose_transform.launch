@@ -1,0 +1,7 @@
+<launch>
+	 <node name="pose_to_global" pkg="uav_ros_general" type="pose2global.py" output="screen">
+            <remap from="/erl_uav/command/pos_ref" to="/erl_uav/goal_pose"/>
+     </node>
+	 <node name="global_to_pose" pkg="uav_ros_general" type="global2pose.py" output="screen" />
+
+</launch>

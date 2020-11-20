@@ -1,0 +1,46 @@
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)" />
+  <arg name="bag_filename" default="$(env HOME)/FER/cartographer_experiments/paper/loam_preliminary_experiment_2.bag"/>
+  <arg name="imu" default="/blue/lpms/imu/data"/>
+
+  <param name="/use_sim_time" value="true"/>
+
+  <include file="$(find uav_ros_general)/launch/robot_state_publisher.launch" />
+
+
+  <include file="$(find uav_ros_general)/launch/velocity_estimation_acc.launch">
+    <arg name="odometry" default="aloam/odometry_filtered_acc"/>
+    <!--arg name="pose" value="/blue/aloam/pose/high_frequency"/-->
+    <arg name="pose" value="/blue/aloam/pose"/>
+  </include>
+
+  <group ns="$(arg namespace)">
+
+    <include file="$(find aloam_velodyne)/launch/aloam_velodyne_VLP_16.launch"/>
+
+    <node name="pose_from_aloam" pkg="uav_ros_general" type="aloam_pose.py"/>
+    <param name = "tracking_frame" value="$(env UAV_NAMESPACE)/base_link"/>
+    <param name = "laser_frame" value="$(env UAV_NAMESPACE)/velodyne"/>
+
+  </group>
+
+  <node name="play_bag" pkg="rosbag" type="play"
+    args="$(arg bag_filename)
+          /tf:=/old/tf
+          --clock"
+    required="true" />
+
+  <node name="record_poses" pkg="rosbag" type="record"
+    args="/tf
+          /$(arg namespace)/aloam/pose
+          /vrpn_client_node/$(env UAV_NAMESPACE)/pose
+          /blue/aloam/odometry_filtered
+          /blue/aloam/odometry_filtered_acc
+          /blue/aloam/pose/high_frequency
+          /blue/aloam/pose/low_frequency
+          /mapping_msecs
+          /odometry_msecs
+          /registration_msecs
+          -O $(arg bag_filename)_aloam.bag" />
+
+</launch>

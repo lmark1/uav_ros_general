@@ -1,0 +1,40 @@
+<launch>
+    <!-- Launch file for multimaster on uav -->
+
+    <node pkg="master_discovery_fkie" type="master_discovery" name="master_discovery_uav">
+    </node>
+
+    <node pkg="master_sync_fkie" type="master_sync" name="master_sync_uav">
+        <!-- Performs resync after the host was offline: unregister and register again to avoid connection losses to python topic. These does not suppot reconnection! -->
+        <param name="resync_on_reconnect" value="True" />
+
+        <!-- A configurable period that controls how long the offline-online period [sec] is before the resync kicks in. (Since version 0.5.9)-->
+        <param name="resync_on_reconnect_timeout" value="0" />
+
+        <!-- The list of topics to synchronize. The ~ignore_nodes and ~ignore_topics lists are processed first. -->
+        <rosparam param="sync_topics">
+        [
+            '/camera/color/image_raw/low_rate/compressed',
+            '/camera/left/image_raw/low_rate/compressed',
+            '/camera/color/camera_info',
+            '/camera/left/camera_info',
+            '/mavros/global_position/global',
+            '/mavros/global_position/rel_alt',
+            '/mavros/global_position/compass_hdg',
+            '/manual_control/joy'
+        ]
+        </rosparam>
+
+        <!-- The list of services to synchronize. The ~ignore_nodes and ~ignore_services lists are processed first. -->
+        <rosparam param="sync_services">
+        [
+            '/magnet/override_ON', 
+            '/magnet/override_OFF',
+            '/msf_pose_sensor/pose_sensor/initialize_msf_scale',
+            '/msf_pose_sensor/pose_sensor/initialize_msf_height',
+            '/back_to_position_hold',
+            '/write_state'
+        ]
+        </rosparam>
+    </node>
+</launch>

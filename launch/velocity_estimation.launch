@@ -1,0 +1,13 @@
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)"/>
+  <arg name="param_config" default="velocity_estimation_parameters.yaml"/>
+  <arg name="pose" default="uav/cartographer/pose"/>
+  <arg name="odometry" default="uav/cartographer/odometry_filtered"/>
+
+  <node pkg="uav_ros_general" name="velocity_estimation_node" type="velocity_estimation_node" output="screen" ns="$(arg namespace)">
+    <rosparam command="load" file="$(find uav_ros_general)/config/$(arg param_config)"/>
+    <remap from="poseStamped" to="$(arg pose)"/>
+    <remap from="odometry" to="$(arg odometry)"/>
+  </node>
+
+</launch>

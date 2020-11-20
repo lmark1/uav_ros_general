@@ -1,0 +1,17 @@
+const_vel_x:
+    kalman:
+        noise_mv: 1.118
+        noise_pos: 2.25
+        noise_vel: 13.5
+
+const_vel_y:
+    kalman:
+        noise_mv: 1.118
+        noise_pos: 2.25
+        noise_vel: 13.5
+
+const_vel_z:
+    kalman:
+        noise_mv: 1.118
+        noise_pos: 3
+        noise_vel: 5

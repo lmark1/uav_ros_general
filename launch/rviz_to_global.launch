@@ -1,0 +1,7 @@
+<launch>
+
+	<node type="rviz" name="rviz" pkg="rviz"/>
+	<node name="pose_to_global" pkg="uav_ros_general" type="pose2global.py" output="screen"/>
+	<node name="goal_to_pose" pkg="uav_ros_general" type="goal2pose.py" output="screen" />
+	
+</launch>

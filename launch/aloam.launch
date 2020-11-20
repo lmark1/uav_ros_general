@@ -1,0 +1,33 @@
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)" />
+  <arg name="imu" default="/blue/lpms/imu/data"/>
+
+  <include file="$(find uav_ros_general)/launch/velodyne.launch">
+    <arg name="rpm" value="1200"/>
+  </include>
+
+  <include file="$(find uav_ros_general)/launch/robot_state_publisher.launch" />
+
+  <group ns="$(arg namespace)">
+
+    <include file="$(find aloam_velodyne)/launch/aloam_velodyne_VLP_16.launch">
+      <arg name="rviz" value="false"/>
+    </include>
+
+    <node name="pose_from_aloam" pkg="uav_ros_general" type="aloam_pose.py"/>
+    <param name="tracking_frame" velue="$(env UAV_NAMESPACE)/base_link"/>
+    <param name="laser_frame" value="$(env UAV_NAMESPACE)/velodyne"/>
+
+  </group>
+
+  <node pkg="uav_ros_general" name="kalman_const_acc_node" type="kalman_const_acc_node" output="screen" ns="$(arg namespace)">
+      <rosparam command="load" file="$(find uav_ros_general)/config/velocity_estimation_parameters_acc.yaml"/>
+      <remap from="poseStamped" to="aloam/pose/high_frequency"/>
+      <remap from="odometry" to="aloam/odometry_filtered"/>
+      <remap from="imu" to="lpms/imu/data"/>
+  </node>
+
+  <!-- Adjust rates -->
+  <!--node name="mavsys_all" pkg="uav_ros_general" type="mavsys_script.sh" output="screen" /-->
+
+</launch>

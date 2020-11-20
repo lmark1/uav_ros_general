@@ -1,0 +1,17 @@
+<launch>
+	<!-- vim: set ft=xml noet : -->
+	<!-- example launch script for ArduPilotMega based FCU's -->
+
+	<arg name="sensor_name" default="LPMSCU2000001"/>
+	<arg name="baudrate" default="921600"/>
+	<arg name="namespace" default="$(env UAV_NAMESPACE)" />
+
+	<group ns="$(arg namespace)/lpms">
+		<node name="openzen_sensor_node" pkg="openzen_sensor" type="openzen_sensor_node" output="screen">
+			<param name="sensor_name" value="$(arg sensor_name)"/>
+			<param name="baudrate" value="$(arg baudrate)"/>
+			<param name="frame_id" value="$(arg namespace)/imu_link"/>
+		</node>
+	</group>
+
+</launch>

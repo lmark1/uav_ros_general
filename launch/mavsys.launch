@@ -1,0 +1,33 @@
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)/mavros"/>
+  <node name="mavsys_raws" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --raw-sensors 1"/>
+  <node name="mavsys_rc" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --rc-channels 25"/>
+  <node name="mavsys_imu" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --extra1 50"/>
+  <node name="mavsys_pos" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --position 25"/>
+
+  <!-- 
+    Node for setting mavros/global_position/home 
+    A note:
+      If You are setting fixed_home_position AND using cartographer, set the following parameters in "config/second_tuning.lua" :
+        - nav_sat_use_predefined_enu_frame = true,
+        - nav_sat_predefined_enu_frame_lat_deg = /* predefined latitude */,
+        - nav_sat_predefined_enu_frame_lon_deg = /* predefined longitude */,
+        - nav_sat_predefined_enu_frame_alt_m = /* predefined altitude */,
+  -->
+  <node name="home_init_node" pkg="uav_ros_general" type="home_position_init.py" ns="$(env UAV_NAMESPACE)" output="screen">
+
+    <!-- If True it sets the predefined home position, otherwise sets to current GPS -->
+    <!-- DO NOT PUSH WITH set_fixed_home=True -->
+    <param name="set_fixed_home"  value="False"/>
+
+    <!-- Predefined home latitude -->
+    <param name="home_lat"        value="12"/>
+
+    <!-- Predefined home longitude -->
+    <param name="home_lon"        value="34"/>
+
+    <!-- Predefined home altitude -->
+    <param name="home_alt"        value="34"/>
+  </node>
+
+</launch>

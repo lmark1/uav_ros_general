@@ -1,0 +1,36 @@
+<!--
+  Copyright 2016 The Cartographer Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<launch>
+  <arg name="bag_filenames"/>
+  <param name="/use_sim_time" value="true" />
+
+  <node name="cartographer_offline_node" pkg="cartographer_ros"
+      type="cartographer_offline_node" args="
+          -configuration_directory $(find uav_ros_general)/config
+          -configuration_basenames second_tuning.lua
+          -urdf_filenames $(find uav_ros_general)/config/vlp16-imu.urdf
+          -bag_filenames $(arg bag_filenames)
+          -keep_running=true
+          -use_bag_transforms=false"
+      output="screen">
+
+    <remap from="imu" to="mavros/imu/data_raw" />
+    <remap from="points2" to="velodyne_points" />
+    <remap from="fix" to="/mavros/global_position/raw/fix" /> 
+  </node>
+</launch>
+

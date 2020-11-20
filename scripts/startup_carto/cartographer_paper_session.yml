@@ -1,0 +1,24 @@
+name: exploration
+root: ./
+startup_window: roscore
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+        - waitForRos; roslaunch uav_ros_general apm2.launch
+        - waitForRos; roslaunch uav_ros_general lpms_imu.launch
+  - control:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_control pid_carrot_carto.launch
+        - "#waitForRos; rosservice call /$UAV_NAMESPACE/position_hold \"{}\""
+  - slam:
+      layout: tiled
+      panes: 
+        - "#waitForRos; roslaunch uav_ros_general slam.launch"
+        - waitForRos; roslaunch uav_ros_general velocity_estimation_acc.launch
+  - exploration:
+      layout: tiled
+      panes:
+        - "#cd ~/bags/exploration_experiments; ./bagger_expl.sh"

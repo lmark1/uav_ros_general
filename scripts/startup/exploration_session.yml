@@ -1,0 +1,29 @@
+name: exploration
+root: ./
+startup_window: roscore
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+        - waitForRos; roslaunch uav_ros_general apm2.launch
+        - waitForRos; roslaunch uav_ros_general lpms_imu.launch
+  - control:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_control pid_carrot_carto.launch
+        - "#waitForRos; rosservice call /$UAV_NAMESPACE/position_hold \"{}\""
+  - slam:
+      layout: tiled
+      panes: 
+        - "#waitForRos; roslaunch uav_ros_general slam_with_starter.launch"
+        - waitForRos; roslaunch uav_ros_general velocity_estimation_acc.launch
+  - exploration:
+      layout: tiled
+      panes:
+        - waitForRos; waitForSLAM; roslaunch frontier_exploration_3d planner.launch
+        - waitForRos; waitForSLAM; roslaunch frontier_exploration_3d execute_trajectory.launch
+        - waitForRos; waitForSLAM; roslaunch frontier_exploration_3d frontier_server.launch
+        - "#waitForRos; waitForSLAM; rosservice call /$UAV_NAMESPACE/exploration/toggle \"data: true\""
+        - "#rosservice call /$UAV_NAMESPACE/confirm_trajectory \"data: true\""
+        - "#cd ~/bags/exploration_experiments; ./bagger_expl.sh"

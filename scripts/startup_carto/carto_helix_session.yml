@@ -1,0 +1,27 @@
+name: exploration
+root: ./
+startup_window: roscore
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+        - waitForRos; roslaunch uav_ros_general apm2.launch
+        - waitForRos; roslaunch uav_ros_general lpms_imu.launch
+  - control:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_control pid_carrot_carto.launch odometry:=aloam/odometry_filtered
+        - "#waitForRos; rosservice call /$UAV_NAMESPACE/position_hold \"{}\""
+  - slam:
+      layout: tiled
+      panes:
+        - "#waitForRos; roslaunch uav_ros_general slam.launch"
+        - waitForRos; roslaunch uav_ros_general velocity_estimation_acc.launch
+  - trajectory and logging:
+      layout: tiled
+      panes:
+        - export ROS_NAMESPACE=blue; waitForRos; waitForOdometry; rosrun topp_ros get_helix_points.py
+        - export ROS_NAMESPACE=blue; waitForRos; waitForOdometry; rosrun topp_ros generate_toppra_trajectory.py
+        - "# export ROS_NAMESPACE=blue; waitForRos; waitForOdometry; rosrun uav_ros_general helix_trajectory.py"
+        - "#cd ~/bags/cartographer_experiments; ./bagger_aloam.sh"

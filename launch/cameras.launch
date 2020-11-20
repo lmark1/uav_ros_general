@@ -1,0 +1,23 @@
+<launch>
+	
+	<arg name="namespace" default="$(env UAV_NAMESPACE)"/>
+	
+	<group ns="$(arg namespace)">
+
+		<!-- Realsense camera -->
+		<include file="$(find realsense2_camera)/launch/rs_rgbd.launch"/>
+	        <!--node pkg="topic_tools" type="throttle" name="throtle_rs" args="
+	            messages /camera/color/image_raw/compressed 5 /camera/color/image_raw/low_rate/compressed" /-->       
+
+		<!-- Smartek camera -->
+		<!--include file="$(find smartek_camera)/launch/smartek_camera.launch" /-->
+
+	        <!-- ZED camera -->
+	        <include file="$(find zed_cpu_ros)/launch/zed_cpu_ros.launch" >
+	            <!--arg name="device_name" value="/dev/v4l/by-id/usb-Technologies__Inc._ZED-M-video-index0"/-->
+		    <arg name="device_name" value="/dev/video0"/>
+	        </include>
+	        <!--node pkg="topic_tools" type="throttle" name="throttle_zed" args="
+	            messages /camera/left/image_raw/compressed 5 /camera/left/image_raw/low_rate/compressed" /-->
+	</group>	
+</launch>

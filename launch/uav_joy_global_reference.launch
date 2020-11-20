@@ -1,0 +1,16 @@
+<launch>
+    <!-- vim: set ft=xml noet : -->
+    <!-- example launch script for ArduPilotMega based FCU's -->
+
+    <node pkg="uav_ros_general" type="joy_global_reference.py" name="joy_global_reference" output="screen">
+        <param name="max_vel_x" value="0.5"/>
+        <param name="max_vel_y" value="0.5"/>
+        <param name="max_vel_z" value="0.5"/>
+        <param name="max_vel_yaw" value="0.1"/>
+        <param name="rate" value="20"/>
+    </node>
+
+    <!--node pkg="joy" type="joy_node" name="joy_node_uav">
+        <param name="autorepeat_rate" value="20" />
+    </node-->
+</launch>
