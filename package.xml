@@ -2,7 +2,7 @@
   <name>uav_ros_general</name>
   <version>0.0.1</version>
   <description>
-
+    General launch files and configuration for "uav_ros_stack" package 
   </description>
   <maintainer email="lovro.markovic@fer.hr">Lovro Markovic</maintainer>
   <author>Lovro Markovic</author>
