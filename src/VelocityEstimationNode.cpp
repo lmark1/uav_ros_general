@@ -1,5 +1,4 @@
-#include <uav_ros_general/ConstVelKF.h>
-#include <uav_ros_general/VelocityEstimationParametersConfig.h>
+#include <uav_ros_lib/estimation/constant_velocity_lkf.hpp>
 #include <geometry_msgs/PoseStamped.h>
 #include <nav_msgs/Odometry.h>
 #include <list>
@@ -11,9 +10,9 @@ int main(int argc, char** argv)
   ros::NodeHandle nhPrivate("~");
   ros::NodeHandle nh;
 
-  ConstVelKF kWrapperXPos("const_vel_x", nhPrivate);
-  ConstVelKF kWrapperYPos("const_vel_y", nhPrivate);
-  ConstVelKF kWrapperZPos("const_vel_z", nhPrivate);
+  ConstantVelocityLKF kWrapperXPos("const_vel_x", nhPrivate);
+  ConstantVelocityLKF kWrapperYPos("const_vel_y", nhPrivate);
+  ConstantVelocityLKF kWrapperZPos("const_vel_z", nhPrivate);
 
   geometry_msgs::PoseStamped poseMsg;
   bool newMeasurementFlag = false;

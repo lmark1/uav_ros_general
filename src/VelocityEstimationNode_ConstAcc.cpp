@@ -1,5 +1,5 @@
 #include <boost/array.hpp>
-#include <uav_ros_general/ConstAccKF.h>
+#include <uav_ros_lib/estimation/constant_acceleration_lkf.hpp>
 #include <geometry_msgs/PoseStamped.h>
 #include <list>
 #include <nav_msgs/Odometry.h>
@@ -10,9 +10,9 @@ int main(int argc, char **argv) {
 
   ros::NodeHandle nhPrivate("~");
   ros::NodeHandle nh;
-  ConstAccKF kWrapperXPos("const_acc_x", nhPrivate);
-  ConstAccKF kWrapperYPos("const_acc_y", nhPrivate);
-  ConstAccKF kWrapperZPos("const_acc_z", nhPrivate);
+  ConstantAccelerationLKF kWrapperXPos("const_acc_x", nhPrivate);
+  ConstantAccelerationLKF kWrapperYPos("const_acc_y", nhPrivate);
+  ConstantAccelerationLKF kWrapperZPos("const_acc_z", nhPrivate);
   
   geometry_msgs::PoseStamped poseMsg;
   bool newMeasurementFlag = false;

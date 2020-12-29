@@ -12,12 +12,7 @@ find_package(
   roslib
   rospack
   geometry_msgs
-  cmake_modules
-  dynamic_reconfigure)
-find_package(Eigen3 REQUIRED)
-
-generate_dynamic_reconfigure_options(config/VelocityEstimationParameters.cfg
-                                     config/KalmanConstAccParameters.cfg)
+  uav_ros_lib)
 
 catkin_package(INCLUDE_DIRS src CATKIN_DEPENDS roscpp roslib rospack)
 
@@ -29,10 +24,6 @@ target_link_libraries(map2transform ${catkin_LIBRARIES})
 
 add_executable(velocity_estimation_node src/VelocityEstimationNode.cpp)
 target_link_libraries(velocity_estimation_node ${catkin_LIBRARIES})
-add_dependencies(velocity_estimation_node ${catkin_EXPORTED_TARGETS}
-                 ${PROJECT_NAME}_gencfg)
 
 add_executable(kalman_const_acc_node src/VelocityEstimationNode_ConstAcc.cpp)
 target_link_libraries(kalman_const_acc_node ${catkin_LIBRARIES})
-add_dependencies(kalman_const_acc_node ${catkin_EXPORTED_TARGETS}
-                 ${PROJECT_NAME}_gencfg)
