@@ -1,0 +1,62 @@
+<!--
+  Copyright 2016 The Cartographer Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)" />
+  <arg name="configuration_directory" default="$(find erl_drone)/config"/>
+  <arg name="configuration_basename" default ="pure_localization_1200_rpm.lua"/>
+  <arg name="state_filename" default="$(env HOME)/maps/gaj_1200_rpm_veliki.pbstream"/>
+
+  <!--<node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find erl_drone)/rviz/erl_drone.rviz" />-->
+
+  <include file="$(find erl_drone)/launch/velodyne.launch">
+    <arg name="rpm" value="45600"/>
+  </include>
+
+  <include file="$(find erl_drone)/launch/robot_state_publisher.launch" />
+
+  <group ns="$(arg namespace)">
+    <node name="cartographer_node" pkg="cartographer_ros"
+        type="cartographer_node" args="
+            -start_trajectory_with_default_topics=false
+            -load_state_filename $(arg state_filename)
+            -configuration_directory $(arg configuration_directory)
+            -configuration_basename $(arg configuration_basename)"
+        output="screen">
+
+        <remap from="imu" to="lpms/imu/data" />
+        <remap from="points2" to="velodyne_points" />
+        <remap from="fix" to="mavros/global_position/global" />
+        <!--remap from="tf_cart" to="tf" /-->
+    </node>
+
+    <node name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"
+        args="$(arg configuration_directory) $(arg configuration_basename)">
+        <remap from="odom" to="/$(arg namespace)/mavros/global_position/local"/>
+    </node>
+
+    <!-- Publishes uav/cartographer/pose -->
+    <node name="pose_to_global" pkg="erl_drone" type="pose2global.py" output="screen" />
+  </group>
+
+  <!-- Adjust rates -->
+  <node name="mavsys_all" pkg="erl_drone" type="mavsys_script.sh" output="screen" />
+
+  <!-- Submap counter -->
+  <node name="topic_transform_submap_counter" pkg="topic_tools" type="transform" args="/$(arg namespace)/submap_list /$(arg namespace)/submap_count std_msgs/Int32 'std_msgs.msg.Int32(data=len(m.submap))' --import std_msgs"/>
+
+</launch>
