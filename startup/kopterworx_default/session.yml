@@ -1,0 +1,22 @@
+name: exploration
+root: ./
+startup_window: roscore
+re_window: export UAV_NAMESPACE=red
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+        - waitForRos; roslaunch erl_drone apm2.launch
+        - waitForRos; waitForMavros; rosrun erl_drone mavsys_script.sh
+  - control:
+      layout: tiled
+      panes:
+        - waitForRos; waitForGlobal; roslaunch uav_ros_control pid_carrot.launch manual_takeoff:=true
+        - waitForRos; waitForGlobal; roslaunch uav_ros_tracker topp_tracker.launch tracker_config:=$(rospack find uav_ros_tracker)/config/topp_config_default.yaml
+  - goto:
+      layout: tiled
+      panes:
+        - "#rosservice call /$UAV_NAMESPACE/topp/enable"
+        - "#rosservice call /$UAV_NAMESPACE/position_hold"
+        - "#rostopic pub /$UAV_NAMESPACE/topp/input_pose"
