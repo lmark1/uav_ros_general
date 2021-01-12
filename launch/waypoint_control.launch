@@ -1,6 +1,0 @@
-<launch>
-	<rosparam command="load" file="$(find uav_ros_general)/config/waypoints.yaml"/>
-	<!-- include file="$(find uav_ros_general)/launch/pose_transform.launch" / -->
-	<node pkg="uav_ros_general" type="wp_publisher.py" name="wp_node" output="screen" />
-        
-</launch>
