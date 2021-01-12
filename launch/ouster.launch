@@ -1,0 +1,32 @@
+<launch>
+  <arg name="sensor_hostname" default="192.168.10.100"/>
+  <arg name="udp_dest" default=" 192.168.10.1"/>
+  <arg name="lidar_port" default="7502"/>
+  <arg name="imu_port" default="7503"/>
+  <arg name="replay" default="false"/>
+  <arg name="lidar_mode" default="2048x10"/>
+  <arg name="timestamp_mode" default="TIME_FROM_PTP_1588"/>
+  <arg name="metadata" default=""/>
+  <arg name="viz" default="false"/>
+  <arg name="image" default="false"/>
+  <arg name="tf_prefix" default=""/>
+  <arg name="min_range" default="0"/>
+  <arg name="max_range" default="55.0"/>
+
+  <include file="$(find ouster_ros)/launch/os0.launch">
+      <arg name="sensor_hostname" value="$(arg sensor_hostname)"/>
+      <arg name="udp_dest" value="$(arg udp_dest)"/>
+      <arg name="lidar_port" value="$(arg lidar_port)"/>
+      <arg name="imu_port" value="$(arg imu_port)"/>
+      <arg name="replay" value="$(arg replay)"/>
+      <arg name="lidar_mode" value="$(arg lidar_mode)"/>
+      <arg name="timestamp_mode" value="$(arg timestamp_mode)"/>
+      <arg name="metadata" value="$(arg metadata)"/>
+      <arg name="viz" value="$(arg viz)"/>
+      <arg name="image" value="$(arg image)"/>
+      <arg name="tf_prefix" value="$(arg tf_prefix)"/>
+      <arg name="min_range" value="$(arg min_range)"/>
+      <arg name="max_range" value="$(arg max_range)"/>
+  </include>
+
+</launch>
