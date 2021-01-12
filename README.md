@@ -10,6 +10,69 @@ This package contains various sensor configuration for the [uav_ros_stack](https
 
 It is intended to be used on UAV platforms with an onboard computer running Ubuntu Linux.
 
+## Node Description
+
+### **VelocityEstimationNode**
+Uses constant velocity Kalman filter to estimate UAV odometry  
+* Subscribed topic **poseStamped**
+  * ```geometry_msgs::PoseStamped```
+  * UAV pose measurement
+* Published topic **odometry**
+  * ```nav_msgs::Odometry```
+  * UAV estimated odometry
+
+Start with default configuration as follows:
+```bash
+export UAV_NAMESPACE=red; roslaunch uav_ros_general velocity_estimation.launch
+```
+### **VelocityEstimationNode_ConstAcc**
+Uses constant acceleration Kalman filter to estimate UAV odometry  
+* Subscribed topic **poseStamped**
+  * ```geometry_msgs::PoseStamped```
+  * UAV pose measurement
+* Subscribed topic **imu**
+  * ```sensor_msgs::Imu```
+  * UAV IMU measurement
+* Published topic **odometry**
+  * ```nav_msgs::Odometry```
+  * UAV estimated odometry
+
+Start with default configuration as follows:
+```bash
+export UAV_NAMESPACE=red; roslaunch uav_ros_general velocity_estimation_acc.launch
+```
+
+### **rc_to_joy_node**
+Convert RC messages to joy. Used only for real-world flights.
+* Subscribed topic **mavros/rc/in**
+  * ```mavros_msgs::RCIn```
+  * Message from the currently active RC
+  * Default Mavros topic name
+* Published topic **joy**
+  * ```sensor_msgs::Joy```
+  * Converted RC message
+
+Start with default configuration for Futaba RC as follows:
+```bash
+export UAV_NAMESPACE=red; roslaunch uav_ros_general futaba_to_joy.launch
+```
+
+### **rc_override_node**
+Override an RC message field at given index.
+* Parameter **override_index**
+  * Index of the overriden field
+* Parameter **override_value**
+  * Desired value of the overriden field
+* Published topic **mavros/rc/override**
+  * ```mavros::OverrideRCIn```
+  * Published overriden RC values
+  * Default Mavros topic name
+
+Start with default configuration as follows:
+```bash
+export UAV_NAMESPACE=red; roslaunch uav_ros_general rc_override.launch override_index:=6
+```
+
 ## Optional Dependancies
 
 Depending on the UAV sensor suite additional ROS driver packages may need to be installed:  
