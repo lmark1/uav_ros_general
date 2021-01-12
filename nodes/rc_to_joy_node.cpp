@@ -17,7 +17,7 @@ int main(int argc, char **argv)
   ros::Subscriber rc_sub =
     n.subscribe("mavros/rc/in", 1, &RcToJoy::rcCallback, rc_to_joy_node);
 
-  ros::Publisher joy_pub = n.advertise<sensor_msgs::Joy>("px4/joy", 1);
+  ros::Publisher joy_pub = n.advertise<sensor_msgs::Joy>("joy", 1);
 
   rc_to_joy_node->setJoyPublisher(joy_pub);
   rc_to_joy_node->initializeParameters(n);
