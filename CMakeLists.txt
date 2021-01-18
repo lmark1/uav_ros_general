@@ -28,6 +28,9 @@ target_link_libraries(velocity_estimation_node ${catkin_LIBRARIES})
 add_executable(kalman_const_acc_node nodes/VelocityEstimationNode_ConstAcc.cpp)
 target_link_libraries(kalman_const_acc_node ${catkin_LIBRARIES})
 
+add_executable(kalman_const_acc_ukf_node nodes/VelocityEstimationNode_ConstAccUKF.cpp)
+target_link_libraries(kalman_const_acc_ukf_node ${catkin_LIBRARIES})
+
 add_executable(rc_to_joy_node nodes/rc_to_joy_node.cpp src/RcToJoy.cpp)
 target_link_libraries(rc_to_joy_node ${catkin_LIBRARIES})
 

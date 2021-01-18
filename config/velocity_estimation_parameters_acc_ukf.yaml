@@ -1,0 +1,26 @@
+const_acc_x:
+    kalman:
+        noise_pos_mv: 2.5
+        noise_acc_mv: 0.75
+        noise_pos_proc: 2.125
+        noise_vel_proc: 20
+        noise_acc_proc: 0.25
+        tune_me: 5
+
+const_acc_y:
+    kalman:
+        noise_pos_mv: 2.5
+        noise_acc_mv: 0.75
+        noise_pos_proc: 2.125
+        noise_vel_proc: 20
+        noise_acc_proc: 0.25
+        tune_me: 5
+
+const_acc_z:
+    kalman:
+        noise_pos_mv: 3
+        noise_acc_mv: 1
+        noise_pos_proc: 2.75
+        noise_vel_proc: 15
+        noise_acc_proc: 0.25
+        tune_me: 5.0

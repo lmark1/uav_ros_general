@@ -42,6 +42,23 @@ Start with default configuration as follows:
 export UAV_NAMESPACE=red; roslaunch uav_ros_general velocity_estimation_acc.launch
 ```
 
+### **VelocityEstimationNode_ConstAcc**
+Uses unscented Kalman filter with a constant acceleration model to estimate UAV odometry  
+* Subscribed topic **poseStamped**
+  * ```geometry_msgs::PoseStamped```
+  * UAV pose measurement
+* Subscribed topic **imu**
+  * ```sensor_msgs::Imu```
+  * UAV IMU measurement
+* Published topic **odometry**
+  * ```nav_msgs::Odometry```
+  * UAV estimated odometry
+
+Start with default configuration as follows:
+```bash
+export UAV_NAMESPACE=red; roslaunch uav_ros_general velocity_estimation_acc_ukf.launch
+```
+
 ### **rc_to_joy_node**
 Convert RC messages to joy. Used only for real-world flights.
 * Subscribed topic **mavros/rc/in**
