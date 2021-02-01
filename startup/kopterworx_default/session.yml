@@ -17,6 +17,6 @@ windows:
   - goto:
       layout: tiled
       panes:
-        - "#rosservice call /$UAV_NAMESPACE/topp/enable"
+        - "#rosservice call /$UAV_NAMESPACE/tracker/enable"
         - "#rosservice call /$UAV_NAMESPACE/position_hold"
-        - "#rostopic pub /$UAV_NAMESPACE/topp/input_pose"
+        - "#rostopic pub /$UAV_NAMESPACE/tracker/input_pose"
