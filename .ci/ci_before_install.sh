@@ -13,17 +13,7 @@ SHA=`git rev-parse HEAD`
 # get the current package name
 PACKAGE_NAME=${PWD##*/}
 
-sudo apt-get -y update -qq
-sudo apt-mark hold openssh-server
-
-# 20.04 problem fix
-sudo apt-get -y install grub-efi
-sudo update-grub
-
-sudo env ACCEPT_EULA=Y apt-get install msodbcsql17
-sudo apt-get -y upgrade --fix-missing
-
-sudo apt-get -y install dpkg git
+sudo apt-get -y install git
 
 echo "clone uav_ros_stack"
 cd
