@@ -17,8 +17,8 @@
 <launch>
   <arg name="namespace" default="$(env UAV_NAMESPACE)" />
   <arg name="configuration_directory" default="$(find uav_ros_general)/config"/>
-  <arg name="configuration_basename" default ="second_tuning_new_params.lua"/>
-
+  <arg name="configuration_basename" default="second_tuning_new_params.lua"/>
+  <arg name="imu" default="lpms/imu/data" />
   <!--<node name="rviz" pkg="rviz" type="rviz" required="true"
       args="-d $(find uav_ros_general)/rviz/uav_ros_general.rviz" />-->
 
@@ -26,33 +26,16 @@
     <arg name="rpm" value="45600"/>
   </include>
 
-  <include file="$(find uav_ros_general)/launch/robot_state_publisher.launch" />
+  <include file="$(find uav_ros_general)/launch/robot_state_publisher.launch"/>
 
-  <group ns="$(arg namespace)">
-    <node name="cartographer_node" pkg="cartographer_ros"
-        type="cartographer_node" args="
-            -start_trajectory_with_default_topics=false
-            -configuration_directory $(arg configuration_directory)
-            -configuration_basename $(arg configuration_basename)"
-        output="screen">
-
-        <remap from="imu" to="lpms/imu/data" />
-        <remap from="points2" to="velodyne_points" />
-        <remap from="fix" to="mavros/global_position/global" />
-        <!--remap from="tf_cart" to="tf" /-->
-    </node>
-
-    <node name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"
-        args="$(arg configuration_directory) $(arg configuration_basename)">
-        <remap from="odom" to="/red/mavros/global_position/local"/>
-    </node>
-
-    <!-- Publishes uav/cartographer/pose -->
-    <node name="pose_to_global" pkg="uav_ros_general" type="pose2global.py" output="screen" />
-  </group>
+  <include file="$(find uav_ros_general)/launch/cartographer.launch">
+    <arg name="configuration_directory" value="$(arg configuration_directory)"/>
+    <arg name="configuration_basename" value="$(arg configuration_basename)"/>
+    <arg name="imu" value="$(arg imu)"/>
+  </include>
 
   <!-- Adjust rates -->
-  <node name="mavsys_all" pkg="uav_ros_general" type="mavsys_script.sh" output="screen" />
+  <node name="mavsys_all" pkg="uav_ros_general" type="mavsys_script.sh" output="screen"/>
 
   <!-- Submap counter -->
   <node name="topic_transform_submap_counter" pkg="topic_tools" type="transform" args="/$(arg namespace)/submap_list /$(arg namespace)/submap_count std_msgs/Int32 'std_msgs.msg.Int32(data=len(m.submap))' --import std_msgs"/>
