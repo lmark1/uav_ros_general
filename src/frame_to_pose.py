@@ -94,14 +94,16 @@ if __name__ == '__main__':
     rospy.Subscriber("erl_uav/command/pos_ref", PoseStamped, command_cb)
     rospy.Subscriber("mavros/imu/data", Imu, imu_cb)
     rospy.Subscriber("erl_uav/yaw_ref", Float64, yaw_cb)
+    parent_frame = rospy.get_param("~parent_frame")
+    child_frame = rospy.get_param("~child_frame")   
     rate = rospy.Rate(50)
 
     while not rospy.is_shutdown():
         rate.sleep()
 
         try:
-            frame1 = rospy.get_namespace() + "map"
-            frame2 = rospy.get_namespace() + "base_link"
+            frame1 = parent_frame
+            frame2 = child_frame
             (trans, rot) = listener.lookupTransform(frame1, frame2, rospy.Time(0))
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             print("Wait for {} to {} transform".format(frame1, frame2))
@@ -109,7 +111,7 @@ if __name__ == '__main__':
 
         newMsg = PoseStamped()
 	newMsg.header.stamp = rospy.get_rostime()
-	newMsg.header.frame_id = rospy.get_namespace() + "map"
+	newMsg.header.frame_id = parent_frame
         newMsg.pose.position.x = trans[0]
         newMsg.pose.position.y = trans[1]
         newMsg.pose.position.z = trans[2]
