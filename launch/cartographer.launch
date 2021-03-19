@@ -20,7 +20,7 @@
   <arg name="imu" default="mavros/imu/data"/>
 
   <arg name="configuration_directory" default="$(find uav_ros_general)/config"/>
-  <arg name="configuration_basename" default ="slam_sim.lua"/>
+  <arg name="configuration_basename" default ="second_tuning_new_params.lua"/>
 
   <group ns="$(arg namespace)">	
     <node name="cartographer_node" pkg="cartographer_ros"
