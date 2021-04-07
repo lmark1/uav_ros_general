@@ -7,8 +7,8 @@ windows:
       layout: tiled
       panes:
         - roscore
-        - waitForRos; roslaunch erl_drone apm2.launch
-        - waitForRos; waitForMavros; rosrun erl_drone mavsys_script.sh
+        - waitForRos; roslaunch uav_ros_general apm2.launch
+        - waitForRos; waitForMavros; rosrun uav_ros_general mavsys_script.sh
   - control:
       layout: tiled
       panes:

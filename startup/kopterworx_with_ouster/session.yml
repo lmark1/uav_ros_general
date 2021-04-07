@@ -7,8 +7,8 @@ windows:
       layout: tiled
       panes:
         - roscore
-        - rosrun erl_drone ouster_dns.sh
-        - rosrun erl_drone ouster_time_sync.sh
+        - rosrun uav_ros_general ouster_dns.sh
+        - rosrun uav_ros_general ouster_time_sync.sh
         - waitForRos; roslaunch erl_drone apm2.launch
         - waitForRos; roslaunch erl_drone lpms_imu.launch
         - waitForRos; waitForMavros; rosrun erl_drone mavsys_script.sh
