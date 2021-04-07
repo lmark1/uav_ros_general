@@ -1,7 +1,7 @@
 name: exploration
 root: ./
 startup_window: roscore
-re_window: export UAV_NAMESPACE=red
+pre_window: export UAV_NAMESPACE=red
 windows:
   - roscore:
       layout: tiled
