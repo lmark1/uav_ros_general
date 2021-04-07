@@ -104,3 +104,8 @@ The following SLAM software may need to be installed when using this package:
 
 * [cartographer](https://github.com/larics/cartographer) & [cartographer_ros](https://github.com/larics/cartographer_ros) - Cartographer is a system that provides real-time simultaneous localization and mapping (SLAM) in 2D and 3D across multiple platforms and sensor configurations.
 * [A-LOAM](https://github.com/larics/A-LOAM) - Advanced LiDAR Odometry And Mapping
+
+The following packages are required if using an Optitrack system:
+
+* [ros_vrpn_client](https://github.com/ethz-asl/ros_vrpn_client) - A ROS Interface for the Virtual Reality Peripheral Network (VRPN)
+* [vrpn_catkin](https://github.com/ethz-asl/vrpn_catkin) - A Catkin wrapper for VRPN libraries
