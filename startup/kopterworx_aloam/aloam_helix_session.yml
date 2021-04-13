@@ -1,4 +1,4 @@
-name: exploration
+name: aloam
 root: ./
 startup_window: roscore
 windows:

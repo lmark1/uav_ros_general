@@ -1,4 +1,4 @@
-name: exploration
+name: carto
 root: ./
 startup_window: roscore
 windows:

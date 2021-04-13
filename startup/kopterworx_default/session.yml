@@ -1,4 +1,4 @@
-name: exploration
+name: kopter
 root: ./
 startup_window: roscore
 pre_window: export UAV_NAMESPACE=red
