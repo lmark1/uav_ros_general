@@ -1,0 +1,16 @@
+<launch>
+  <arg name="namespace" default="$(env UAV_NAMESPACE)/mavros"/>
+
+  <!-- Enable EKF2 Vision Position and Yaw fusion - vision_pose/pose -->
+  <node name="mavparam_ekf2mask" pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_AID_MASK 24" output="screen"/>
+
+  <!-- Set primary altitude estimator to vision -->
+  <node name="mavparam_ekf2hgt"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_HGT_MODE 3"  output="screen"/>
+
+  <!-- Disable GPS checks -->
+  <node name="mavparam_gpscheck" pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_GPS_CHECK 0" output="screen"/>
+
+  <!-- Disable magnetometer fusion -->
+  <node name="mavparam_magtype"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_MAG_TYPE 5" output="screen"/>
+
+</launch>
