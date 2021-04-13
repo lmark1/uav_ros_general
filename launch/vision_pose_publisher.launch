@@ -4,9 +4,9 @@
   <arg name="odometry"      default="odometry"/>
   <arg name="pose_out"      default="pose_out"/>
   <arg name="odometry_out"  default="odometry_out"/>
-  <arg name="config_file"   default="$(find erl_drone)/config/vision_pose_config.yaml"/>
+  <arg name="config_file"   default="$(find uav_ros_general)/config/vision_pose_config.yaml"/>
 
-  <node pkg="erl_drone" name="vision_pose_publisher" type="vision_pose_publisher.py" ns="$(arg namespace)" output="screen">
+  <node pkg="uav_ros_general" name="vision_pose_publisher" type="vision_pose_publisher.py" ns="$(arg namespace)" output="screen">
     <rosparam command="load" file="$(arg config_file)"/>
     
     <!-- Do the remaps -->
