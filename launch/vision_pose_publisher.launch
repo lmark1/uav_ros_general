@@ -1,14 +1,18 @@
 <launch>
-  <arg name="namespace" default="$(env UAV_NAMESPACE)"/>
-  <arg name="pose"      default="pose"/>
-  <arg name="odometry"  default="odometry"/>
-  <arg name="config_file" default="$(find erl_drone)/config/vision_pose_config.yaml"/>
+  <arg name="namespace"     default="$(env UAV_NAMESPACE)"/>
+  <arg name="pose"          default="pose"/>
+  <arg name="odometry"      default="odometry"/>
+  <arg name="pose_out"      default="pose_out"/>
+  <arg name="odometry_out"  default="odometry_out"/>
+  <arg name="config_file"   default="$(find erl_drone)/config/vision_pose_config.yaml"/>
 
   <node pkg="erl_drone" name="vision_pose_publisher" type="vision_pose_publisher.py" ns="$(arg namespace)" output="screen">
     <rosparam command="load" file="$(arg config_file)"/>
     
     <!-- Do the remaps -->
-    <remap from="pose"      to="$(arg pose)"/>
-    <remap from="odometry"  to="$(arg odometry)"/>
+    <remap from="pose"          to="$(arg pose)"/>
+    <remap from="odometry"      to="$(arg odometry)"/>
+    <remap from="pose_out"      to="$(arg pose_out)"/>
+    <remap from="odometry_out"  to="$(arg odometry_out)"/>
   </node>
 </launch>
