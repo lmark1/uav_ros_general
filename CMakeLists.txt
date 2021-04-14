@@ -12,7 +12,8 @@ find_package(
   roslib
   rospack
   geometry_msgs
-  uav_ros_lib)
+  uav_ros_lib
+  mavros_msgs)
 
 catkin_package(INCLUDE_DIRS src CATKIN_DEPENDS roscpp roslib rospack)
 
