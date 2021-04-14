@@ -1,0 +1,27 @@
+name: optitrack
+root: ./
+startup_window: roscore
+pre_window:
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+        - waitForRos; roslaunch uav_ros_general px4.launch
+        - waitForRos; roslaunch multirotor_transformations rc_to_joy.launch
+  - control:
+      layout: tiled
+      panes:
+        - waitForRos; roslaunch uav_ros_general optitrack.launch
+        - waitForRos; roslaunch uav_ros_control pid_carrot_optitrack.launch
+          control_type:=pid_cascade_node_px4_yawrate default_params:=custom_config/position_control_mocap.yaml
+  - optitrack:
+      layout: tiled
+      panes:
+        - waitForRos; waitForMavros; sleep 20; roslaunch uav_ros_general px4_optitrack_params.launch
+        - waitForRos; roslaunch uav_ros_general vision_pose_publisher.launch 
+          config_file:=custom_config/vision_pose_config.yaml odometry:=vrpn_client/estimated_odometry
+  - goto:
+      layout: tiled
+      panes:
+        - history -s "rosservice call /$UAV_NAMESPACE/position_hold"
