@@ -21,6 +21,7 @@ windows:
         - waitForRos; waitForMavros; sleep 20; roslaunch uav_ros_general px4_optitrack_params.launch
         - waitForRos; roslaunch uav_ros_general vision_pose_publisher.launch 
           config_file:=custom_config/vision_pose_config.yaml odometry:=vrpn_client/estimated_odometry
+          odometry_out:=mavros/odometry_out
   - goto:
       layout: tiled
       panes:
