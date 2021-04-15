@@ -1,4 +1,4 @@
-# OPTITRACK 
+# External Odometry - Optitrack 
 
 This is a guide for setting up Optitrack to play nicely with PX4 1.11.3.  
 **NOTE** - Other Firmware versions may behave differently.  
@@ -41,7 +41,9 @@ The idea is to feed an external estimate to PX4 through Mavros interface. There 
 
 To achieve this a following command is used:
 ```bash
-export UAV_NAMESPACE=red; roslaunch uav_ros_general vision_pose_publisher.launch odometry:=vrpn_client/estimated_oometry pose_out:=mavros/vision_pose/pose
+export UAV_NAMESPACE=red 
+roslaunch uav_ros_general optitrack.launch
+roslaunch uav_ros_general vision_pose_publisher.launch odometry:=vrpn_client/estimated_oometry pose_out:=mavros/vision_pose/pose
 ```
 **NOTE** - when using ```mavros/vision_pose/pose``` it is important to set *EKF2_AID_MASK* to 24 and 
 when using ```mavros/odometry/out``` it is important to set *EKF2_AID_MASK* 280 to signalize 
@@ -55,7 +57,9 @@ external estimator. However, this doesn't seem to work on PX4 Firmware 1.11.3. A
 * [odometry-not-showing-up-in-px4-when-using-visual-interial-odometry-vio](https://discuss.px4.io/t/odometry-not-showing-up-in-px4-when-using-visual-interial-odometry-vio/18626/4)
 * [mavlink::common::msg::ODOMETRY is not sending out for somereason](https://github.com/mavlink/mavros/issues/1208)
 
-## Demo
+## Demonstration
+
+The following images are the result of feeding Optitrack pose to ```mavros/vision_pose/pose```.
 
 <p float="left">
     <img src=".fig/optitrack_fusion_pos.png" width="1000"/>
