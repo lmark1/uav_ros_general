@@ -54,3 +54,13 @@ external estimator. However, this doesn't seem to work on PX4 Firmware 1.11.3. A
 
 * [odometry-not-showing-up-in-px4-when-using-visual-interial-odometry-vio](https://discuss.px4.io/t/odometry-not-showing-up-in-px4-when-using-visual-interial-odometry-vio/18626/4)
 * [mavlink::common::msg::ODOMETRY is not sending out for somereason](https://github.com/mavlink/mavros/issues/1208)
+
+## Demo
+
+<p float="left">
+    <img src=".fig/optitrack_fusion_pos.png" width="1000"/>
+</p>
+
+<p float="left">
+    <img src=".fig/optitrack_fusion_vel.png" width="1000"/>
+</p>
