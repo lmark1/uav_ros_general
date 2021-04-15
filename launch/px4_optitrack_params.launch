@@ -2,7 +2,7 @@
   <arg name="namespace" default="$(env UAV_NAMESPACE)/mavros"/>
 
   <!-- Enable EKF2 Vision Position and Yaw fusion - vision_pose/pose -->
-  <node name="mavparam_ekf2mask" pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_AID_MASK 280" output="screen"/>
+  <node name="mavparam_ekf2mask" pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_AID_MASK 24" output="screen"/>
 
   <!-- Set primary altitude estimator to vision -->
   <node name="mavparam_ekf2hgt"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_HGT_MODE 3"  output="screen"/>
@@ -14,11 +14,11 @@
   <node name="mavparam_magtype"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_MAG_TYPE 5" output="screen"/>
 
   <!-- EKF2 parameters -->
-  <node name="mavparam_EKF2_EVA_NOISE"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_EVA_NOISE 0.05" output="screen"/>
-  <node name="mavparam_EKF2_EVP_NOISE"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_EVP_NOISE 0.02" output="screen"/>
+  <node name="mavparam_EKF2_EVA_NOISE"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_EVA_NOISE 0.0003" output="screen"/>
+  <node name="mavparam_EKF2_EVP_NOISE"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_EVP_NOISE 0.0009" output="screen"/>
   <node name="mavparam_EKF2_EVV_NOISE"  pkg="mavros" type="mavparam" args="-n $(arg namespace) set EKF2_EVV_NOISE 0.02" output="screen"/>
-  <node name="mavparam_EKF2_EVP_GATE"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EVP_GATE  25.0"  output="screen"/>
-  <node name="mavparam_EKF2_EVV_GATE"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EVV_GATE  25.0" output="screen"/>
-  <node name="mavparam_EKF2_EV_DELAY"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EV_DELAY 6" output="screen"/>
+  <node name="mavparam_EKF2_EVP_GATE"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EVP_GATE  50.0"  output="screen"/>
+  <node name="mavparam_EKF2_EVV_GATE"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EVV_GATE  50.0" output="screen"/>
+  <node name="mavparam_EKF2_EV_DELAY"  pkg="mavros" type="mavparam"  args="-n $(arg namespace) set EKF2_EV_DELAY 0" output="screen"/>
 
 </launch>
