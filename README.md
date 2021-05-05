@@ -100,7 +100,7 @@ Depending on the UAV sensor suite additional ROS driver packages may need to be 
 * [realsense2_camera](https://github.com/IntelRealSense/realsense-ros) - These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
 * [zed_cpu_ros](https://github.com/willdzeng/zed_cpu_ros) - A simple zed camera driver which only use CPU and only publish left and right raw images and its camera info.
 * [lpms_imu](https://github.com/larics/lpms_imu) - A ROS driver for LP-RESEARCH IMU sensors.
-* [ros_gremsy](https://github.com/Flova/ros_gremsy) - An ROS interface to control gremsy gimbals.
+* [ros_gremsy](https://github.com/Flova/ros_gremsy) & [gremsy_gimbal_control](https://github.com/larics/gremsy_gimbal_control) - An ROS interface to control gremsy gimbals.
 
 The following SLAM software may need to be installed when using this package:
 
