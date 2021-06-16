@@ -1,0 +1,12 @@
+<launch>
+  <arg name="namespace"         default="$(env UAV_NAMESPACE)/mavros"/>
+  <arg name="raw_sensor_rate"   default="1"/>
+  <arg name="rc_channel_rate"   default="25"/>
+  <arg name="extra1_rate"       default="25"/>
+  <arg name="position_rate"     default="25"/>
+
+  <node name="mavsys_raws" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --raw-sensors 1"/>
+  <node name="mavsys_rc" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --rc-channels 25"/>
+  <node name="mavsys_imu" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --extra1 50"/>
+  <node name="mavsys_pos" pkg="mavros" type="mavsys" args="--mavros-ns $(arg namespace) rate --position 25"/>
+</launch>
