@@ -101,6 +101,7 @@ Depending on the UAV sensor suite additional ROS driver packages may need to be 
 * [zed_cpu_ros](https://github.com/willdzeng/zed_cpu_ros) - A simple zed camera driver which only use CPU and only publish left and right raw images and its camera info.
 * [lpms_imu](https://github.com/larics/lpms_imu) - A ROS driver for LP-RESEARCH IMU sensors.
 * [ros_gremsy](https://github.com/Flova/ros_gremsy) & [gremsy_gimbal_control](https://github.com/larics/gremsy_gimbal_control) - An ROS interface to control gremsy gimbals.
+* [pozyx_ros](https://github.com/larics/pozyx_ros) - A ROS Interface to Pozyx sensor
 
 The following SLAM software may need to be installed when using this package:
 
