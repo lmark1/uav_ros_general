@@ -1,5 +1,5 @@
 <launch>
-  <arg name="configuration_directory" default="$(find uav_ros_general)/config"/>
+  <arg name="configuration_directory" default="$(find uav_ros_general)/cartographer_config"/>
   <arg name="configuration_basename" default="second_tuning.lua"/>
 
   <node name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"

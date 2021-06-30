@@ -16,7 +16,7 @@
 
 <launch>
   <arg name="namespace" default="$(env UAV_NAMESPACE)" />
-  <arg name="configuration_directory" default="$(find erl_drone)/config"/>
+  <arg name="configuration_directory" default="$(find erl_drone)/cartographer_config"/>
   <arg name="configuration_basename" default ="pure_localization_1200_rpm.lua"/>
   <arg name="state_filename" default="$(env HOME)/maps/gaj_1200_rpm_veliki.pbstream"/>
 

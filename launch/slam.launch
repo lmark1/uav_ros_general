@@ -31,7 +31,7 @@
   <group ns="$(arg namespace)">	
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
-          -configuration_directory $(find uav_ros_general)/config
+          -configuration_directory $(find uav_ros_general)/cartographer_config
           -configuration_basename second_tuning.lua"
       output="screen">
   <!--param name="map_topic" value="/map" /-->

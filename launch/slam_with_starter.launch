@@ -16,7 +16,7 @@
 
 <launch>
   <arg name="namespace" default="$(env UAV_NAMESPACE)" />
-  <arg name="configuration_directory" default="$(find uav_ros_general)/config"/>
+  <arg name="configuration_directory" default="$(find uav_ros_general)/cartographer_config"/>
   <arg name="configuration_basename" default="second_tuning_new_params.lua"/>
   <arg name="imu" default="lpms/imu/data" />
   <!--<node name="rviz" pkg="rviz" type="rviz" required="true"
