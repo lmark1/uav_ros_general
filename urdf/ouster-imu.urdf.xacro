@@ -1,4 +1,8 @@
-<robot name="danieli-drone">
+<?xml version="1.0"?>
+<robot name="danieli-drone" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="namespace" default="none"/>
+  <xacro:property name="namespace" value="$(arg namespace)" />
+
   <material name="orange">
     <color rgba="1.0 0.5 0.2 1" />
   </material>
@@ -6,7 +10,7 @@
     <color rgba="0.2 0.2 0.2 1" />
   </material>
 
-  <link name="danieli2/imu_link">
+  <link name="${namespace}/imu_link">
     <visual>
       <origin xyz="0.0 0.0 0.0" />
       <geometry>
@@ -36,21 +40,21 @@
     </visual>
   </link>
 
-  <link name="base_link" />
+  <link name="${namespace}/base_link" />
 
-  <joint name="imu_link_joint" type="fixed">
-    <parent link="base_link" />
-    <child link="danieli2/imu_link" />
+  <joint name="${namespace}/imu_link_joint" type="fixed">
+    <parent link="${namespace}/base_link" />
+    <child link="${namespace}/imu_link" />
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
   
-  <joint name="ouster_link_joint" type="fixed">
-    <parent link="base_link" />
+  <joint name="${namespace}/ouster_link_joint" type="fixed">
+    <parent link="${namespace}/base_link" />
     <child link="os_lidar" />
     <origin xyz="0.08 0. -0.1578" rpy="3.151592653589793 0.3023284641020683 0." />
   </joint>
   
-  <joint name="os_imu_link_joint" type="fixed">
+  <joint name="${namespace}/os_imu_link_joint" type="fixed">
     <parent link="os_lidar" />
     <child link="os_imu" />
     <origin xyz="0 0 0" rpy="0 0 0" />
