@@ -17,8 +17,8 @@
 <launch>
   
   <arg name="namespace" default="$(env UAV_NAMESPACE)"/>
-  
-  <param name="$(arg namespace)/robot_description" command="$(find xacro)/xacro --inorder $(find uav_ros_general)/config/vlp16-imu.urdf.xacro namespace:=$(arg namespace)"/>
+  <arg name="urdf"      default=
+  <param name="$(arg namespace)/robot_description" command="$(find xacro)/xacro --inorder $(find uav_ros_general)/urdf/vlp16-imu.urdf.xacro namespace:=$(arg namespace)"/>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher"
     type="robot_state_publisher" ns="$(arg namespace)"/>

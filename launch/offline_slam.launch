@@ -22,7 +22,7 @@
       type="cartographer_offline_node" args="
           -configuration_directory $(find uav_ros_general)/cartographer_config
           -configuration_basenames second_tuning.lua
-          -urdf_filenames $(find uav_ros_general)/config/vlp16-imu.urdf
+          -urdf_filenames $(find uav_ros_general)/urdf/vlp16-imu.urdf
           -bag_filenames $(arg bag_filenames)
           -keep_running=true
           -use_bag_transforms=false"

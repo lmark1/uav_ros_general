@@ -17,13 +17,13 @@ rosservice call /write_state "filename: '${HOME}/example.bag.pbstream' include_u
 If you want to visualise a trajectory and a map without using .bag file:
 
 ```
-rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data_raw fix:=/mavros/global_position/raw/fix -urdf_filenames= ~/catkin_ws/src/uav_ros_general/config/vlp16-imu.urdf -keep_running=true -load_frozen_state=false -load_state_filename=${HOME}/example.bag.pbstream
+rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data_raw fix:=/mavros/global_position/raw/fix -urdf_filenames= ~/catkin_ws/src/uav_ros_general/urdf/vlp16-imu.urdf -keep_running=true -load_frozen_state=false -load_state_filename=${HOME}/example.bag.pbstream
 ```
 
 Then start assets_writer node with created .pbstream file:
 
 ```
-rosrun cartographer_ros cartographer_assets_writer -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basename assets_writer.lua -urdf_filename= ~/catkin_ws/src/uav_ros_general/config/vlp16-imu.urdf -bag_filenames=${HOME}/example.bag -pose_graph_filename=${HOME}/example.bag.pbstream
+rosrun cartographer_ros cartographer_assets_writer -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basename assets_writer.lua -urdf_filename= ~/catkin_ws/src/uav_ros_general/urdf/vlp16-imu.urdf -bag_filenames=${HOME}/example.bag -pose_graph_filename=${HOME}/example.bag.pbstream
 ```
 
 Wait until the processing is over.
@@ -37,7 +37,7 @@ Now, .ply and .png files are generated.
 Start cartographer_offline node:
 
 ```
-rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data fix:=/mavros/global_position/global -urdf_filenames=~/catkin_ws/src/uav_ros_general/config/vlp16-imu.urdf -keep_running=true -bag_filenames=${HOME}/example.bag
+rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data fix:=/mavros/global_position/global -urdf_filenames=~/catkin_ws/src/uav_ros_general/urdf/vlp16-imu.urdf -keep_running=true -bag_filenames=${HOME}/example.bag
 
 ```
 Cartographer_offline node creates .pbstream file in the folder where .bag file is.
@@ -45,7 +45,7 @@ Cartographer_offline node creates .pbstream file in the folder where .bag file i
 Then start assets_writer node with created .pbstream file:
 
 ```
-rosrun cartographer_ros cartographer_assets_writer -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basename assets_writer.lua -urdf_filename= ~/catkin_ws/src/uav_ros_general/config/vlp16-imu.urdf -bag_filenames=${HOME}/example.bag -pose_graph_filename=${HOME}/example.bag.pbstream
+rosrun cartographer_ros cartographer_assets_writer -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basename assets_writer.lua -urdf_filename= ~/catkin_ws/src/uav_ros_general/urdf/vlp16-imu.urdf -bag_filenames=${HOME}/example.bag -pose_graph_filename=${HOME}/example.bag.pbstream
 ```
 Wait until the processing is over.
 Now, .ply and .png files are generated.
@@ -56,7 +56,7 @@ Use [MeshLab](http://www.meshlab.net/) and [GoogleEarth](https://www.google.hr/i
 Visualise trajectoy in RViz:
 
 ```
-rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data_raw fix:=/mavros/global_position/raw/fix -urdf_filenames= ~/catkin_ws/src/uav_ros_general/config/vlp16-imu.urdf -keep_running=true -load_frozen_state=false -load_state_filename=${HOME}/example.bag.pbstream
+rosrun cartographer_ros cartographer_offline_node -configuration_directory ~/catkin_ws/src/uav_ros_general/cartographer_config -configuration_basenames second_tuning.lua points2:=/velodyne_points imu:=/mavros/imu/data_raw fix:=/mavros/global_position/raw/fix -urdf_filenames= ~/catkin_ws/src/uav_ros_general/urdf/vlp16-imu.urdf -keep_running=true -load_frozen_state=false -load_state_filename=${HOME}/example.bag.pbstream
 ```
 
 Call /write_ecef_trajectory service and add output filename where x,y,z coordinates will be saved:

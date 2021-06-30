@@ -19,7 +19,7 @@
       type="cartographer_assets_writer" args="
           -configuration_directory $(find uav_ros_general)/cartographer_config
           -configuration_basename assets_writer.lua
-          -urdf_filename $(find uav_ros_general)/config/vlp16-imu.urdf
+          -urdf_filename $(find uav_ros_general)/urdf/vlp16-imu.urdf
           -bag_filenames $(arg bag_filenames)
           -pose_graph_filename $(arg pose_graph_filename)"
       output="screen">
