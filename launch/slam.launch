@@ -17,36 +17,17 @@
 <launch>
   <arg name="namespace" default="$(env UAV_NAMESPACE)" />
 
-  <!--<node name="rviz" pkg="rviz" type="rviz" required="true"
-      args="-d $(find uav_ros_general)/rviz/uav_ros_general.rviz" />-->
-
+  <!-- Start velodyne -->
   <include file="$(find uav_ros_general)/launch/velodyne.launch">
     <arg name="rpm" value="45600"/>
   </include>
 
-  <!--<include file="$(find uav_ros_general)/launch/apm2.launch">
-    <arg name="fcu_url" value="/dev/ttyUSB0:921600" />
-  </include>-->
+  <!-- Launch robot state publisher -->
   <include file="$(find uav_ros_general)/launch/robot_state_publisher.launch" />
-  <group ns="$(arg namespace)">	
-  <node name="cartographer_node" pkg="cartographer_ros"
-      type="cartographer_node" args="
-          -configuration_directory $(find uav_ros_general)/cartographer_config
-          -configuration_basename second_tuning.lua"
-      output="screen">
-  <!--param name="map_topic" value="/map" /-->
 
-    <remap from="imu" to="mavros/imu/data" />
-    <!--node name="imu_relay" pkg="topic_tools" type="relay"
-       args="/mavros/imu/data_raw /imu" /-->
-    <remap from="points2" to="velodyne_points" />
-    <remap from="fix" to="mavros/global_position/global" />
-    <remap from="tf_cart" to="tf" />
-   </node>  
-   <!-- Publishes uav/cartographer/pose -->
-   <node name="pose_to_global" pkg="uav_ros_general" type="pose2global.py" output="screen" />
-  </group>
-  
-  <!-- Adjust rates -->
+  <!-- Launch cartographer -->
+  <include file="$(find uav_ros_general)/launch/cartographer.launch"/>
+
+  <!-- Setup rates -->
   <node name="mavsys_all" pkg="uav_ros_general" type="mavsys_script.sh" output="screen" />	  
 </launch>

@@ -14,47 +14,63 @@
   limitations under the License.
 -->
 <launch>
-  <arg name="namespace" default="$(env UAV_NAMESPACE)"/>
-  <arg name="slam_ns" default="map"/>
-  <arg name="simulation" default="false"/>
-  <arg name="imu" default="mavros/imu/data"/>
+  <arg name="namespace"               default="$(env UAV_NAMESPACE)"/>
+  
+  <!-- Simulation parameters -->
+  <arg name="simulation"              default="false"/>
+  <arg name="slam_ns"                 default="map"/>
 
+  <!-- Cartographer topic names -->
+  <arg name="imu"                     default="mavros/imu/data"/>
+  <arg name="fix"                     default="mavros/global_position/global"/>
+  <arg name="points2"                 default="velodyne_points"/>
+  <arg name="transform"               default="/pozyx/measured"/>
+  
+  <!-- Cartographer configuration parameters -->
   <arg name="configuration_directory" default="$(find uav_ros_general)/cartographer_config"/>
-  <arg name="configuration_basename" default ="second_tuning_new_params.lua"/>
+  <arg name="configuration_basename"  default ="second_tuning_new_params.lua"/>
 
-  <group ns="$(arg namespace)">	
-    <node name="cartographer_node" pkg="cartographer_ros"
+  <!-- Starter parameters -->
+  <arg name="enable_starter"          default="false"/>
+  <arg name="starter_odom"            default="mavros/global_position/local"/>
+
+  <group ns="$(arg namespace)">
+
+    <!-- Launch cartographer_ros node -->
+    <node 
+      name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
           -start_trajectory_with_default_topics=false
           -configuration_directory $(arg configuration_directory)
           -configuration_basename $(arg configuration_basename)"
       output="screen">
 
-    <remap from="imu" to="$(arg imu)"/>
-    <remap from="points2" to="velodyne_points"/>
-    <remap from="fix" to="mavros/global_position/global"/>
-    <!-- <remap from="tf_cart" to="/tf" /> -->
+        <remap from="imu"       to="$(arg imu)"/>
+        <remap from="points2"   to="$(arg points2)"/>
+        <remap from="fix"       to="$(arg fix)"/>
+        <remap from="transform" to="$(arg transform)"/>
     </node>
 
-    <node name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"
-        args="$(arg configuration_directory) $(arg configuration_basename)">
-        <remap from="odom" to="mavros/global_position/local"/>
+    <!-- Launch slam starter -->
+    <node 
+      name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"
+      args="$(arg configuration_directory) $(arg configuration_basename)">
+        
+        <remap from="odom" to="$(arg starter_odom)"/>
     </node>
-
-    <node pkg="cartographer_ros" type="cartographer_occupancy_grid_node" name="cartographer_occupancy_grid_node" />
 
     <!-- Publishes uav/cartographer/pose with the different namespace for sim and online -->
     <group if="$(arg simulation)">
-      <node name="frame_to_pose" pkg="uav_ros_general" type="frame_to_pose.py" output="screen">
-        <param name="parent_frame" value="$(arg namespace)/$(arg slam_ns)/map"/>
-        <param name="child_frame" value="$(arg namespace)/$(arg slam_ns)/base_link"/>
+      <node name="pose_from_tf" pkg="uav_ros_general" type="pose_from_tf.py" output="screen">
+        <param name="map_frame"       value="$(arg namespace)/$(arg slam_ns)/map"/>
+        <param name="tracking_frame"  value="$(arg namespace)/$(arg slam_ns)/base_link"/>
       </node>
     </group>
 
     <group unless="$(arg simulation)">
-      <node name="frame_to_pose" pkg="uav_ros_general" type="frame_to_pose.py" output="screen">
-        <param name="parent_frame" value="$(arg namespace)/map"/>
-        <param name="child_frame" value="$(arg namespace)/base_link"/>
+      <node name="pose_from_tf" pkg="uav_ros_general" type="pose_from_tf.py" output="screen">
+        <param name="map_frame"       value="$(arg namespace)/map"/>
+        <param name="tracking_frame"  value="$(arg namespace)/base_link"/>
       </node>
     </group>
 
