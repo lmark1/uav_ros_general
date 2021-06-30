@@ -43,7 +43,10 @@
 
   <!-- Starter parameters -->
   <arg name="enable_starter"          default="false"/>
-  <arg name="starter_odom"            default="mavros/global_position/local"/>
+  <arg name="starter_odom"            default="starter_odom"/>
+  <arg name="starter_transform"       default="starter_transform"/>
+  <arg name="use_fixed_yaw"           default="false"/>
+  <arg name="fixed_yaw"               default="0"/>
 
   <!-- Debug arguments -->
   <arg     if="$(arg enable_starter)" name="start_trajectory_with_default_topics" value="false" />
@@ -71,7 +74,11 @@
       name="SLAM_starter" pkg="cartographer_ros" type="slam_starter.py"
       args="$(arg configuration_directory) $(arg configuration_basename)">
         
-        <remap from="odom" to="$(arg starter_odom)"/>
+        <remap from="starter_odom"      to="$(arg starter_odom)"/>
+        <remap from="starter_transform" to="$(arg starter_transform)"/>
+        
+        <param name="use_fixed_yaw"   value="$(arg use_fixed_yaw)"/>
+        <param name="fixed_yaw"       value="$(arg fixed_yaw)"/>
     </node>
 
     <!-- Publishes uav/cartographer/pose with the different namespace for sim and online -->
