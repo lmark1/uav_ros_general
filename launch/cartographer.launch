@@ -47,6 +47,7 @@
   <arg name="starter_transform"       default="starter_transform"/>
   <arg name="use_fixed_yaw"           default="false"/>
   <arg name="fixed_yaw"               default="0"/>
+  <arg name="num_samples"             default="10"/>
 
   <!-- Debug arguments -->
   <arg     if="$(arg enable_starter)" name="start_trajectory_with_default_topics" value="false" />

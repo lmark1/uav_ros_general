@@ -27,7 +27,7 @@ options = {
   publish_frame_projected_to_2d = false,
   use_pose_extrapolator = true,
   use_odometry = false,
-  use_nav_sat = true,
+  use_nav_sat = false,
   nav_sat_use_predefined_enu_frame = false,
   nav_sat_predefined_enu_frame_lat_deg = 45.813902,
   nav_sat_predefined_enu_frame_lon_deg = 16.038766,
@@ -35,6 +35,8 @@ options = {
   nav_sat_translation_weight = 1.,
   nav_sat_inverse_covariance_bias = 1.,
   nav_sat_inverse_covariance_weight = 5.,
+  use_position_sensor = false,
+  position_translation_weight = 1,
   use_landmarks = false,
   num_laser_scans = 0,
   num_multi_echo_laser_scans = 0,
@@ -53,7 +55,7 @@ options = {
 
 TRAJECTORY_BUILDER.collate_fixed_frame = false
 
-TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 76
+TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight = 5.5
 TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight_z = 5.5
 TRAJECTORY_BUILDER_3D.ceres_scan_matcher.rotation_weight = 5
